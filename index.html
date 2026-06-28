@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IF Wedding Planner</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sage-light: #E8EFE4;
+            --sage: #A8B5A0;
+            --sage-mid: #B8C6B0;
+            --sage-dark: #8A9A82;
+            --rose-gold: #D4A89A;
+            --rose-gold-light: #F0D5C8;
+            --rose-gold-dark: #C49587;
+            --warm-white: #FAF8F5;
+            --warm-white2: #F5F1EC;
+            --text-dark: #3D3D3D;
+            --text-light: #6B6B6B;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.10);
+            --radius: 16px;
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--warm-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--warm-white2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--sage);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sage-dark);
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-dark));
+            color: #fff;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(212, 168, 154, 0.4);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 168, 154, 0.5);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            color: var(--rose-gold-dark);
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 2px solid var(--rose-gold);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .btn-secondary:hover {
+            background: var(--rose-gold);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 8px 18px;
+            font-size: 0.85rem;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(168, 181, 160, 0.15);
+            transition: var(--transition);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--sage-dark);
+            letter-spacing: -0.5px;
+        }
+        .navbar .logo span {
+            color: var(--rose-gold-dark);
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--rose-gold);
+            transition: var(--transition);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: var(--rose-gold-dark);
+        }
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            padding: 140px 0 100px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(160deg, #FAF8F5 0%, #F0EDE8 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 168, 154, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(168, 181, 160, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-content h1 {
+            font-size: 3.8rem;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        .hero-content h1 .highlight {
+            background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 480px;
+            margin-bottom: 36px;
+            font-weight: 300;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image .ring-icon {
+            font-size: 10rem;
+            color: var(--rose-gold);
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+        .hero-image .ring-icon i {
+            filter: drop-shadow(0 10px 30px rgba(212, 168, 154, 0.2));
+        }
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* ========== SECTION TITLE ========== */
+        .section-title {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+        .section-title h2 {
+            font-size: 2.6rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+        .section-title .divider {
+            display: inline-block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sage), var(--rose-gold));
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        /* ========== FEATURES ========== */
+        .features {
+            padding: 80px 0;
+            background: var(--warm-white);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 40px 28px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(168, 181, 160, 0.10);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--rose-gold-light);
+        }
+        .feature-card .icon {
+            font-size: 2.8rem;
+            color: var(--rose-gold-dark);
+            margin-bottom: 16px;
+            display: inline-block;
+            background: var(--rose-gold-light);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .feature-card:hover .icon {
+            background: var(--rose-gold);
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* ========== BUDGET SECTION ========== */
+        .budget {
+            padding: 80px 0;
+            background: var(--warm-white2);
+        }
+        .budget-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .budget-left {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .budget-right {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .budget-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 28px 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(168, 181, 160, 0.08);
+        }
+        .budget-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .budget-card h3 i {
+            color: var(--rose-gold-dark);
+        }
+
+        /* Donut chart */
+        .chart-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .chart-wrapper canvas {
+            max-width: 200px;
+            max-height: 200px;
+            width: 100%;
+            height: auto;
+        }
+        .chart-stats {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+        .chart-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chart-stats .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot.sage {
+            background: var(--sage);
+        }
+        .dot.rose {
+            background: var(--rose-gold);
+        }
+
+        /* Input budget */
+        .budget-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .budget-form input,
+        .budget-form select {
+            flex: 1 0 140px;
+            padding: 12px 16px;
+            border: 1.5px solid #e0ddd8;
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            background: var(--warm-white);
+            transition: var(--transition);
+            outline: none;
+        }
+        .budget-form input:focus,
+        .budget-form select:focus {
+            border-color: var(--rose-gold);
+            box-shadow: 0 0 0 4px rgba(212, 168, 154, 0.15);
+        }
+        .budget-form .btn-primary {
+            padding: 12px 28px;
+            flex: 0 0 auto;
+        }
+
+        /* Budget table */
+        .budget-table-wrap {
+            overflow-x: auto;
+        }
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .budget-table th {
+            text-align: left;
+            padding: 14px 12px;
+            background: var(--warm-white2);
+            color: var(--text-dark);
+            font-weight: 700;
+            border-bottom: 2px solid var(--sage);
+        }
+        .budget-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eeeae5;
+        }
+        .budget-table tr:hover td {
+            background: #f8f6f2;
+        }
+        .budget-table .delete-btn {
+            background: none;
+            border: none;
+            color: #c0392b;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .budget-table .delete-btn:hover {
+            transform: scale(1.2);
+        }
+        .budget-total {
+            margin-top: 16px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-top: 2px solid var(--sage-mid);
+        }
+
+        /* ========== GUESTS ========== */
+        .guests {
+            padding: 80px 0;
+            background: var(--warm-white);
+        }
+        .guests-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .guests-stats {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .guests-stats .stat-badge {
+            background: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(168, 181, 160, 0.15);
+        }
+        .guests-stats .stat-badge i {
+            margin-right: 6px;
+            color: var(--rose-gold-dark);
+        }
+
+        .guest-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .guest-form input,
+        .guest-form select {
+            flex: 1 0 130px;
+            padding: 12px 16px;
+            border: 1.5px solid #e0ddd8;
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            background: var(--warm-white);
+            transition: var(--transition);
+            outline: none;
+        }
+        .guest-form input:focus,
+        .guest-form select:focus {
+            border-color: var(--rose-gold);
+            box-shadow: 0 0 0 4px rgba(212, 168, 154, 0.15);
+        }
+        .guest-form .btn-primary {
+            padding: 12px 24px;
+            flex: 0 0 auto;
+        }
+
+        .guest-list {
+            max-height: 340px;
+            overflow-y: auto;
+        }
+        .guest-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f0ede8;
+            transition: var(--transition);
+        }
+        .guest-item:hover {
+            border-color: var(--rose-gold-light);
+        }
+        .guest-item .guest-info {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .guest-item .guest-name {
+            font-weight: 600;
+        }
+        .guest-item .guest-relation {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        .guest-item .guest-status {
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .status-attend {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-decline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .guest-item .delete-btn {
+            background: none;
+            border: none;
+            color: #c0392b;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .guest-item .delete-btn:hover {
+            transform: scale(1.2);
+        }
+
+        /* ========== TIMELINE ========== */
+        .timeline {
+            padding: 80px 0;
+            background: var(--warm-white2);
+        }
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+        .timeline-item {
+            background: #fff;
+            padding: 24px 24px 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--rose-gold);
+            transition: var(--transition);
+        }
+        .timeline-item:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-4px);
+        }
+        .timeline-item .tl-label {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--sage-dark);
+            margin-bottom: 6px;
+        }
+        .timeline-item .tl-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .timeline-item .tl-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .timeline-item .tl-check input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--rose-gold);
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        .timeline-item .tl-check span {
+            transition: var(--transition);
+        }
+        .timeline-item .tl-check input:checked+span {
+            text-decoration: line-through;
+            color: var(--sage);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: 48px 0;
+            background: #2d2d2d;
+            color: #ccc;
+            text-align: center;
+        }
+        .footer .heart {
+            color: var(--rose-gold);
+        }
+        .footer .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #fff;
+        }
+        .footer .brand span {
+            color: var(--rose-gold);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-actions {
+                justify-content: center;
+            }
+            .hero-image .ring-icon {
+                font-size: 6rem;
+            }
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .budget-grid {
+                grid-template-columns: 1fr;
+            }
+            .guests-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 0;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: rgba(250, 248, 245, 0.98);
+                backdrop-filter: blur(10px);
+                position: absolute;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                padding: 24px 24px 32px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(168, 181, 160, 0.15);
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+                min-height: auto;
+            }
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            .budget-form {
+                flex-direction: column;
+            }
+            .budget-form input,
+            .budget-form select {
+                flex: 1 1 auto;
+            }
+            .budget-form .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+            .guest-form {
+                flex-direction: column;
+            }
+            .guest-form input,
+            .guest-form select {
+                flex: 1 1 auto;
+            }
+            .guest-form .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+            .timeline-grid {
+                grid-template-columns: 1fr;
+            }
+            .chart-wrapper canvas {
+                max-width: 160px;
+                max-height: 160px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            .btn-primary {
+                padding: 12px 28px;
+                font-size: 0.9rem;
+            }
+            .btn-secondary {
+                padding: 10px 24px;
+                font-size: 0.85rem;
+            }
+            .budget-card {
+                padding: 20px;
+            }
+            .guest-item {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .guest-item .guest-info {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="logo">IF<span>Wedding</span></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Beranda</a></li>
+                <li><a href="#features">Fitur</a></li>
+                <li><a href="#budget">Anggaran</a></li>
+                <li><a href="#guests">Tamu</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>
+                    Wedding Planner <br />
+                    <span class="highlight">Ihsanu-Firda</span>
+                </h1>
+                <p>
+                    Rencanakan hari spesialmu dengan elegan. Kelola anggaran, daftar tamu,
+                    dan timeline persiapan dalam satu platform yang indah.
+                </p>
+                <div class="hero-actions">
+                    <a href="#budget" class="btn-primary"><i class="fas fa-arrow-right"></i> Mulai Rencanakan</a>
+                    <a href="#features" class="btn-secondary">Jelajahi Fitur</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="ring-icon">
+                    <i class="fas fa-ring"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Fitur Utama</h2>
+                <p>Semua yang kamu butuhkan untuk pernikahan impian</p>
+                <div class="divider"></div>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-wallet"></i></div>
+                    <h3>Manajemen Anggaran</h3>
+                    <p>Pantau pengeluaran, kelola kategori, dan lihat sisa dana secara real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <h3>Daftar Tamu</h3>
+                    <p>Kelola tamu undangan, status kehadiran, dan lihat total undangan.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Timeline Acara</h3>
+                    <p>Checklist persiapan bulanan agar tidak ada yang terlewat.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ BUDGET ============ -->
+    <section class="budget" id="budget">
+        <div class="container">
+            <div class="section-title">
+                <h2>Manajemen Anggaran</h2>
+                <p>Kendalikan keuangan pernikahanmu dengan mudah</p>
+                <div class="divider"></div>
+            </div>
+
+            <div class="budget-grid">
+                <!-- LEFT COLUMN -->
+                <div class="budget-left">
+                    <!-- Chart -->
+                    <div class="budget-card">
+                        <h3><i class="fas fa-chart-pie"></i> Dashboard Anggaran</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="budgetDonut" width="200" height="200"></canvas>
+                            <div class="chart-stats">
+                                <span class="stat-item"><span class="dot sage"></span> Terpakai</span>
+                                <span class="stat-item"><span class="dot rose"></span> Sisa</span>
+                            </div>
+                            <div id="budgetSummary" style="font-weight:600; font-size:1rem;">
+                                Total: Rp 0 &nbsp;|&nbsp; Sisa: Rp 0
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input -->
+                    <div class="budget-card">
+                        <h3><i class="fas fa-plus-circle"></i> Tambah Pengeluaran</h3>
+                        <form class="budget-form" id="budgetForm">
+                            <input type="text" id="budgetCategory" placeholder="Kategori (misal: Venue)" required />
+                            <input type="number" id="budgetEstimate" placeholder="Estimasi (Rp)" required min="0" step="1000" />
+                            <input type="number" id="budgetPaid" placeholder="Dibayar (Rp)" required min="0" step="1000" />
+                            <button type="submit" class="btn-primary btn-sm"><i class="fas fa-save"></i> Simpan</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN -->
+                <div class="budget-right">
+                    <div class="budget-card">
+                        <h3><i class="fas fa-table"></i> Rincian Pengeluaran</h3>
+                        <div class="budget-table-wrap">
+                            <table class="budget-table" id="budgetTable">
+                                <thead>
+                                    <tr><th>Kategori</th><th>Estimasi</th><th>Dibayar</th><th>Sisa</th><th></th></tr>
+                                </thead>
+                                <tbody id="budgetTableBody">
+                                    <!-- dinamis -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="budget-total">
+                            <span>Total Estimasi: <strong id="totalEstimate">Rp 0</strong></span>
+                            <span>Total Dibayar: <strong id="totalPaid">Rp 0</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ GUESTS ============ -->
+    <section class="guests" id="guests">
+        <div class="container">
+            <div class="section-title">
+                <h2>Daftar Tamu</h2>
+                <p>Kelola undangan dan pantau kehadiran</p>
+                <div class="divider"></div>
+            </div>
+
+            <div class="guests-grid">
+                <!-- LEFT -->
+                <div>
+                    <div class="budget-card">
+                        <h3><i class="fas fa-user-plus"></i> Tambah Tamu</h3>
+                        <form class="guest-form" id="guestForm">
+                            <input type="text" id="guestName" placeholder="Nama Tamu" required />
+                            <input type="text" id="guestRelation" placeholder="Hubungan (misal: Keluarga)" />
+                            <select id="guestStatus">
+                                <option value="Pending">Pending</option>
+                                <option value="Attend">Attend</option>
+                                <option value="Decline">Decline</option>
+                            </select>
+                            <button type="submit" class="btn-primary btn-sm"><i class="fas fa-save"></i> Tambah</button>
+                        </form>
+                    </div>
+                    <div class="guests-stats" id="guestStats">
+                        <span class="stat-badge"><i class="fas fa-users"></i> Total: <span id="totalGuests">0</span></span>
+                        <span class="stat-badge"><i class="fas fa-check-circle" style="color:#28a745;"></i> Attend: <span id="attendCount">0</span></span>
+                        <span class="stat-badge"><i class="fas fa-times-circle" style="color:#dc3545;"></i> Decline: <span id="declineCount">0</span></span>
+                        <span class="stat-badge"><i class="fas fa-clock" style="color:#ffc107;"></i> Pending: <span id="pendingCount">0</span></span>
+                    </div>
+                </div>
+                <!-- RIGHT -->
+                <div>
+                    <div class="budget-card">
+                        <h3><i class="fas fa-list"></i> Daftar Tamu</h3>
+                        <div class="guest-list" id="guestList">
+                            <!-- dinamis -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TIMELINE ============ -->
+    <section class="timeline" id="timeline">
+        <div class="container">
+            <div class="section-title">
+                <h2>Timeline Persiapan</h2>
+                <p>Checklist bulanan menuju hari bahagia</p>
+                <div class="divider"></div>
+            </div>
+            <div class="timeline-grid" id="timelineGrid">
+                <!-- dinamis -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="brand">IF<span>Wedding</span></div>
+            <p style="margin-top:8px; font-weight:300;">
+                &copy; 2026 <span class="heart">♥</span> Ihsanu-Firda Wedding Planner
+            </p>
+            <p style="font-size:0.85rem; opacity:0.6; margin-top:4px;">
+                Dibuat dengan cinta untuk hari istimewamu.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ========================
+            // 1. NAVBAR TOGGLE
+            // ========================
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.getElementById('navLinks');
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('open');
+            });
+            // Tutup saat link diklik
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => navLinks.classList.remove('open'));
+            });
+
+            // ========================
+            // 2. BUDGET MODULE
+            // ========================
+            let budgetItems = [];
+
+            function loadBudget() {
+                try {
+                    const stored = localStorage.getItem('ifwp_budget_items');
+                    if (stored) budgetItems = JSON.parse(stored);
+                    else budgetItems = [];
+                } catch (_) { budgetItems = []; }
+                renderBudget();
+            }
+
+            function saveBudget() {
+                localStorage.setItem('ifwp_budget_items', JSON.stringify(budgetItems));
+                renderBudget();
+            }
+
+            function renderBudget() {
+                const tbody = document.getElementById('budgetTableBody');
+                if (!tbody) return;
+                let html = '';
+                let totalEst = 0,
+                    totalPaid = 0;
+
+                budgetItems.forEach((item, idx) => {
+                    const est = Number(item.estimate) || 0;
+                    const paid = Number(item.paid) || 0;
+                    const sisa = est - paid;
+                    totalEst += est;
+                    totalPaid += paid;
+                    html += `
+                        <tr>
+                            <td><strong>${escapeHtml(item.category)}</strong></td>
+                            <td>Rp ${formatNum(est)}</td>
+                            <td>Rp ${formatNum(paid)}</td>
+                            <td style="color:${sisa < 0 ? '#c0392b' : (sisa === 0 ? '#27ae60' : 'inherit')}">Rp ${formatNum(sisa)}</td>
+                            <td><button class="delete-btn" data-idx="${idx}" title="Hapus"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                    `;
+                });
+
+                tbody.innerHTML = html || '<tr><td colspan="5" style="text-align:center; color:#aaa;">Belum ada data pengeluaran</td></tr>';
+
+                document.getElementById('totalEstimate').textContent = 'Rp ' + formatNum(totalEst);
+                document.getElementById('totalPaid').textContent = 'Rp ' + formatNum(totalPaid);
+
+                // Update donut chart
+                const sisa = totalEst - totalPaid;
+                const used = totalPaid;
+                const maxVal = Math.max(totalEst, 1);
+                const usedPct = Math.min(used / maxVal, 1);
+                const sisaPct = Math.max(0, 1 - usedPct);
+                drawDonut(usedPct, sisaPct);
+
+                document.getElementById('budgetSummary').innerHTML =
+                    `Total: Rp ${formatNum(totalEst)} &nbsp;|&nbsp; Sisa: Rp ${formatNum(Math.max(sisa,0))}`;
+
+                // Hapus event
+                document.querySelectorAll('#budgetTableBody .delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(this.dataset.idx, 10);
+                        if (!isNaN(idx)) {
+                            budgetItems.splice(idx, 1);
+                            saveBudget();
+                        }
+                    });
+                });
+            }
+
+            // Donut Chart dengan Canvas
+            function drawDonut(usedPct, sisaPct) {
+                const canvas = document.getElementById('budgetDonut');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                const w = canvas.width;
+                const h = canvas.height;
+                const cx = w / 2,
+                    cy = h / 2;
+                const radius = Math.min(w, h) / 2 - 12;
+                const lineWidth = 24;
+
+                ctx.clearRect(0, 0, w, h);
+
+                // Background circle (ring tipis)
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+                ctx.strokeStyle = '#e8e3dc';
+                ctx.lineWidth = lineWidth;
+                ctx.stroke();
+
+                // Sisa (sage)
+                if (sisaPct > 0.005) {
+                    const startAngle = -Math.PI / 2;
+                    const endAngle = startAngle + (sisaPct * Math.PI * 2);
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, radius, startAngle, endAngle);
+                    ctx.strokeStyle = '#A8B5A0';
+                    ctx.lineWidth = lineWidth;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                }
+
+                // Terpakai (rose gold)
+                if (usedPct > 0.005) {
+                    const startAngle = -Math.PI / 2 + (sisaPct * Math.PI * 2);
+                    const endAngle = startAngle + (usedPct * Math.PI * 2);
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, radius, startAngle, endAngle);
+                    ctx.strokeStyle = '#D4A89A';
+                    ctx.lineWidth = lineWidth;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                }
+
+                // Teks tengah
+                ctx.fillStyle = '#3D3D3D';
+                ctx.font = 'bold 20px Nunito, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                const total = budgetItems.reduce((s, it) => s + (Number(it.estimate) || 0), 0);
+                const paid = budgetItems.reduce((s, it) => s + (Number(it.paid) || 0), 0);
+                const sisaVal = Math.max(total - paid, 0);
+                ctx.fillText('Rp ' + formatNum(Math.round(sisaVal)), cx, cy - 6);
+                ctx.font = '12px Nunito, sans-serif';
+                ctx.fillStyle = '#6B6B6B';
+                ctx.fillText('Sisa Dana', cx, cy + 22);
+            }
+
+            // Form budget
+            const budgetForm = document.getElementById('budgetForm');
+            if (budgetForm) {
+                budgetForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const category = document.getElementById('budgetCategory').value.trim();
+                    const estimate = parseFloat(document.getElementById('budgetEstimate').value) || 0;
+                    const paid = parseFloat(document.getElementById('budgetPaid').value) || 0;
+                    if (!category || estimate <= 0 || paid < 0) {
+                        alert('Harap isi semua bidang dengan benar.');
+                        return;
+                    }
+                    budgetItems.push({ category, estimate, paid });
+                    saveBudget();
+                    this.reset();
+                    document.getElementById('budgetCategory').focus();
+                });
+            }
+
+            // ========================
+            // 3. GUESTS MODULE
+            // ========================
+            let guests = [];
+
+            function loadGuests() {
+                try {
+                    const stored = localStorage.getItem('ifwp_guests');
+                    if (stored) guests = JSON.parse(stored);
+                    else guests = [];
+                } catch (_) { guests = []; }
+                renderGuests();
+            }
+
+            function saveGuests() {
+                localStorage.setItem('ifwp_guests', JSON.stringify(guests));
+                renderGuests();
+            }
+
+            function renderGuests() {
+                const list = document.getElementById('guestList');
+                if (!list) return;
+                let html = '';
+                let total = 0,
+                    attend = 0,
+                    decline = 0,
+                    pending = 0;
+
+                guests.forEach((g, idx) => {
+                    const status = g.status || 'Pending';
+                    if (status === 'Attend') attend++;
+                    else if (status === 'Decline') decline++;
+                    else pending++;
+                    total++;
+                    const statusClass = status === 'Attend' ? 'status-attend' :
+                        status === 'Decline' ? 'status-decline' : 'status-pending';
+                    html += `
+                        <div class="guest-item">
+                            <div class="guest-info">
+                                <span class="guest-name">${escapeHtml(g.name)}</span>
+                                <span class="guest-relation">${escapeHtml(g.relation || '-')}</span>
+                                <span class="guest-status ${statusClass}">${status}</span>
+                            </div>
+                            <button class="delete-btn" data-idx="${idx}" title="Hapus"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    `;
+                });
+
+                list.innerHTML = html || '<div style="text-align:center; color:#aaa; padding:20px;">Belum ada tamu</div>';
+
+                document.getElementById('totalGuests').textContent = total;
+                document.getElementById('attendCount').textContent = attend;
+                document.getElementById('declineCount').textContent = decline;
+                document.getElementById('pendingCount').textContent = pending;
+
+                document.querySelectorAll('#guestList .delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(this.dataset.idx, 10);
+                        if (!isNaN(idx)) {
+                            guests.splice(idx, 1);
+                            saveGuests();
+                        }
+                    });
+                });
+            }
+
+            const guestForm = document.getElementById('guestForm');
+            if (guestForm) {
+                guestForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('guestName').value.trim();
+                    const relation = document.getElementById('guestRelation').value.trim();
+                    const status = document.getElementById('guestStatus').value;
+                    if (!name) {
+                        alert('Nama tamu wajib diisi.');
+                        return;
+                    }
+                    guests.push({ name, relation: relation || '-', status });
+                    saveGuests();
+                    this.reset();
+                    document.getElementById('guestName').focus();
+                });
+            }
+
+            // ========================
+            // 4. TIMELINE MODULE
+            // ========================
+            const defaultTimeline = [
+                { label: '12 Bulan Sebelum', desc: 'Tentukan tema & budget', checked: false },
+                { label: '10 Bulan Sebelum', desc: 'Cari venue & katering', checked: false },
+                { label: '8 Bulan Sebelum', desc: 'Pilih gaun & jas', checked: false },
+                { label: '6 Bulan Sebelum', desc: 'Pesan dekorasi & fotografer', checked: false },
+                { label: '4 Bulan Sebelum', desc: 'Kirim undangan', checked: false },
+                { label: '2 Bulan Sebelum', desc: 'Finalisasi menu & RSVP', checked: false },
+                { label: '1 Bulan Sebelum', desc: 'Cek perlengkapan & seating', checked: false },
+                { label: '1 Minggu Sebelum', desc: 'Rehearsal & konfirmasi vendor', checked: false },
+            ];
+
+            let timelineData = [];
+
+            function loadTimeline() {
+                try {
+                    const stored = localStorage.getItem('ifwp_timeline');
+                    if (stored) {
+                        const parsed = JSON.parse(stored);
+                        // pastikan semua field ada
+                        timelineData = defaultTimeline.map((def, i) => {
+                            if (i < parsed.length) {
+                                return { ...def, ...parsed[i] };
+                            }
+                            return { ...def };
+                        });
+                    } else {
+                        timelineData = defaultTimeline.map(t => ({ ...t }));
+                    }
+                } catch (_) {
+                    timelineData = defaultTimeline.map(t => ({ ...t }));
+                }
+                renderTimeline();
+            }
+
+            function saveTimeline() {
+                localStorage.setItem('ifwp_timeline', JSON.stringify(timelineData));
+                renderTimeline();
+            }
+
+            function renderTimeline() {
+                const grid = document.getElementById('timelineGrid');
+                if (!grid) return;
+                let html = '';
+                timelineData.forEach((item, idx) => {
+                    const checked = item.checked ? 'checked' : '';
+                    html += `
+                        <div class="timeline-item">
+                            <div class="tl-label">${escapeHtml(item.label)}</div>
+                            <div class="tl-desc">${escapeHtml(item.desc)}</div>
+                            <label class="tl-check">
+                                <input type="checkbox" ${checked} data-idx="${idx}" />
+                                <span>${checked ? 'Selesai' : 'Belum selesai'}</span>
+                            </label>
+                        </div>
+                    `;
+                });
+                grid.innerHTML = html;
+
+                grid.querySelectorAll('.tl-check input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        const idx = parseInt(this.dataset.idx, 10);
+                        if (!isNaN(idx) && idx < timelineData.length) {
+                            timelineData[idx].checked = this.checked;
+                            saveTimeline();
+                        }
+                    });
+                });
+            }
+
+            // ========================
+            // 5. UTILITY
+            // ========================
+            function escapeHtml(str) {
+                if (!str) return '';
+                return String(str).replace(/[&<>"]/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    return m;
+                });
+            }
+
+            function formatNum(n) {
+                return Number(n).toLocaleString('id-ID');
+            }
+
+            // ========================
+            // 6. INIT
+            // ========================
+            loadBudget();
+            loadGuests();
+            loadTimeline();
+
+            // resize donut on window resize (simple)
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    renderBudget();
+                }, 300);
+            });
+
+            // Re-draw donut after all fonts loaded (optional)
+            window.addEventListener('load', function() {
+                renderBudget();
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
